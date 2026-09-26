@@ -49,6 +49,7 @@ description=[*]Build 42 only.
 description=[*]Safe to add to an existing save. New trucks spawn in chunks you haven't explored yet.
 description=[/list]
 description=
+description=More on the mod: [url=https://hxhippy.com/blog/pz-cybertruck]hxhippy.com/blog/pz-cybertruck[/url]
 description=Source, issues and changelog: [url=https://github.com/HxHippy/pz-cybertruck]github.com/HxHippy/pz-cybertruck[/url]
 description=Made by HxHippy.
 tags=Build 42;Vehicles
