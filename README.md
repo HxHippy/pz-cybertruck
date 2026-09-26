@@ -4,7 +4,7 @@
 
 **A fully loaded electric Cybertruck for Project Zomboid Build 42. Charge it off a generator.**
 
-**[How to use it](GUIDE.md)** | **[Issues](https://github.com/HxHippy/pz-cybertruck/issues)**
+**[How to use it](GUIDE.md)** | **[Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=3808581322)** | **[Issues](https://github.com/HxHippy/pz-cybertruck/issues)**
 
 ![build](https://img.shields.io/badge/PZ-Build%2042-5a7a3a)
 
@@ -41,7 +41,8 @@ Charging, drain and armor all run on the server. Plugging in is a client command
 
 ## Install
 - **Manual:** copy this folder to `~/Zomboid/Workshop/Cybertruck` and enable **Cybertruck** in Mods. Copy it instead of symlinking it, because the game won't load vehicle scripts through a symlink.
-- **Dedicated server:** add `Cybertruck` to `Mods=`.
+- **[Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=3808581322):** subscribe, then enable **Cybertruck** in Mods.
+- **Dedicated server:** add `3808581322` to `WorkshopItems=` and `Cybertruck` to `Mods=`.
 
 ## Layout
 ```
