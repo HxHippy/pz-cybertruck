@@ -326,7 +326,13 @@ def write_fbx(template_path, out_path, name):
     geo = re.sub(r"Smoothing: \*\d+ \{.*?\} ", lambda m: arr("Smoothing", [0] * len(tris)), geo, flags=re.S)
     t = t[:g0] + geo + t[g1:]
     t = t.replace("Model::Vehicles_PickUpTruck", "Model::" + name)
-    open(out_path, "w", encoding="latin-1").write(t)
+    open(out_path, "w", encoding="latin-1").write(scrub_paths(t))
+
+
+def scrub_paths(t):
+    """The vanilla export carries its author's Windows paths; point the texture at ours and blank the rest."""
+    t = re.sub(r'"[A-Za-z]:\\[^"]*\.png"', '"vehicle_cybertruck_shell.png"', t)
+    return re.sub(r'"[A-Za-z]:\\[^"]*"', '""', t)
 
 
 def write_obj(path, tex_name):
