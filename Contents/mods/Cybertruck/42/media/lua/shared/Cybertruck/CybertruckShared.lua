@@ -12,6 +12,11 @@ function Cybertruck.is(vehicle)
 end
 
 function Cybertruck.opt(name, default)
+    -- Single player can opt in to Options > Mods values (CybertruckOptions.lua).
+    if Cybertruck.localOverride then
+        local v = Cybertruck.localOverride(name)
+        if v ~= nil then return v end
+    end
     local vars = SandboxVars and SandboxVars.Cybertruck
     if vars and vars[name] ~= nil then return vars[name] end
     return default

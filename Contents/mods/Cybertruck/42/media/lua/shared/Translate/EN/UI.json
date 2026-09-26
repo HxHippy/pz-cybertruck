@@ -1,0 +1,9 @@
+{
+    "UI_Cybertruck_WhereSettings": "These are the world settings, set when you create a world (New Game > Sandbox > Advanced > Cybertruck). On a server, the admin sets them for everyone.",
+    "UI_Cybertruck_Override": "Use these settings in single player",
+    "UI_Cybertruck_Override_tip": "On: the dials below apply to your solo games right away, instead of the world's settings. Off, or on any server: the world's settings apply. Spawn changes only affect areas you haven't explored yet.",
+    "UI_Cybertruck_Spawning": "Spawning",
+    "UI_Cybertruck_Battery": "Battery and charging",
+    "UI_Cybertruck_Performance": "Performance",
+    "UI_Cybertruck_Protection": "Protection"
+}

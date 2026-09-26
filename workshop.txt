@@ -39,6 +39,7 @@ description=[*][b]World spawn:[/b] rare, in upscale neighborhoods, professional 
 description=[*][b]Build it:[/b] Build Cybertruck (Mechanics 8, Welding 7, Electrical 6). It rolls out next to you with the key and a nearly empty battery.
 description=[/list]
 description=Nearly everything is a sandbox dial: spawn weight, battery when found, drain, regen, charge time, generator fuel cost, cable reach, motor power, top speed, loudness, off-road grip, glass and panel strength, armor, and cabin protection (plush tank, reinforced or vanilla).
+description=Find them in New Game > Sandbox > Advanced > Cybertruck. Playing solo? The same dials are in Options > Mods > Cybertruck and take effect instantly.
 description=
 description=[h2]Multiplayer[/h2]
 description=Charging, drain and armor run on the server. Plugging in is checked by the server.

@@ -25,7 +25,9 @@ Both options are sandbox toggles, so the world creator (or server admin) decides
 - **Build it:** the **Build Cybertruck** recipe (Mechanics 8, Welding 7, Electrical 6) rolls a new truck out next to you and hands you the key. It comes with a nearly empty battery, so go find a generator.
 
 ## Sandbox options
-Every dial lives on the **Cybertruck** page of the sandbox settings.
+Every dial lives on the **Cybertruck** page of the sandbox settings (New Game > Sandbox > Advanced), so on a server everyone gets the same truck.
+
+**Single player:** the same dials are in **Options > Mods > Cybertruck**. Tick *Use these settings in single player* and they take effect right away, overriding the world's settings. Spawn changes only reach areas you haven't explored yet.
 
 | Group | Option | Default |
 |---|---|---|
