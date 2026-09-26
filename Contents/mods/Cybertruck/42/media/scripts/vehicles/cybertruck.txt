@@ -1,0 +1,497 @@
+module Base
+{
+    vehicle Cybertruck
+    {
+        mechanicType = 2,
+        engineRepairLevel = 6,
+        playerDamageProtection = 3.0,
+        offRoadEfficiency = 1.4,
+
+        model
+        {
+            file = Vehicles_Cybertruck,
+            scale = 1.82,
+            offset = 0.0 0.3022 0.0,
+        }
+        skin
+        {
+            texture = Vehicles/vehicle_cybertruck_shell,
+        }
+        textureMask = Vehicles/vehicle_cybertruck_mask,
+        textureLights = Vehicles/vehicle_cybertruck_lights,
+        textureDamage1Overlay = Vehicles/Veh_Blood_Mask,
+        textureDamage2Overlay = Vehicles/Veh_Blood_Hvy,
+        textureDamage1Shell = Vehicles/Veh_Damage1,
+        textureDamage2Shell = Vehicles/Veh_Damage2,
+        textureRust = Vehicles/Veh_Rust,
+
+        sound
+        {
+            alarmLoop = VehicleAlarmA VehicleAlarmB VehicleAlarmC VehicleAlarmD VehicleAlarmE,
+            engine = CybertruckMotor,
+            engineStart = CybertruckStart,
+            engineTurnOff = CybertruckStop,
+            horn = VehicleHornStandard,
+            ignitionFail = VehicleIgnitionFailSUV,
+        }
+
+        extents = 0.8681 0.6593 2.1868,
+        physicsChassisShape = 0.8681 0.6593 2.1868,
+        centerOfMassOffset = 0.0 0.2600 0.0,
+        shadowExtents = 0.8681 2.1868,
+        shadowOffset = 0.0 0.0,
+        mass = 1400,
+        engineForce = 7500,
+        engineQuality = 100,
+        engineLoudness = 20,
+        maxSpeed = 120.0,
+        brakingForce = 140,
+        stoppingMovementForce = 4.0,
+        rollInfluence = 0.6,
+        steeringIncrement = 0.04,
+        steeringClamp = 0.3,
+        suspensionStiffness = 45.0,
+        suspensionCompression = 3.83,
+        suspensionDamping = 2.88,
+        maxSuspensionTravelCm = 14.0,
+        suspensionRestLength = 0.2,
+        wheelFriction = 1.8,
+        frontEndHealth = 600,
+        rearEndHealth = 600,
+        seats = 4,
+
+        wheel FrontLeft
+        {
+            front = true,
+            offset = 0.3462 -0.3956 0.7582,
+            radius = 0.15,
+            width = 0.2,
+        }
+        wheel FrontRight
+        {
+            front = true,
+            offset = -0.3462 -0.3956 0.7582,
+            radius = 0.15,
+            width = 0.2,
+        }
+        wheel RearLeft
+        {
+            front = false,
+            offset = 0.3462 -0.3956 -0.5879,
+            radius = 0.15,
+            width = 0.2,
+        }
+        wheel RearRight
+        {
+            front = false,
+            offset = -0.3462 -0.3956 -0.5879,
+            radius = 0.15,
+            width = 0.2,
+        }
+
+        template = PassengerSeat4,
+        passenger FrontLeft
+        {
+            position inside
+            {
+                offset = 0.1758 -0.1374 0.1209,
+                rotate = 0.0 0.0 0.0,
+            }
+            position outside
+            {
+                offset = 0.5934 -0.467 0.2143,
+                rotate = 0.0 0.0 0.0,
+                area = SeatFrontLeft,
+            }
+        }
+        passenger FrontRight
+        {
+            position inside
+            {
+                offset = -0.1758 -0.1374 0.1209,
+                rotate = 0.0 0.0 0.0,
+            }
+            position outside
+            {
+                offset = -0.5934 -0.467 0.2143,
+                rotate = 0.0 0.0 0.0,
+                area = SeatFrontRight,
+            }
+        }
+        passenger RearLeft
+        {
+            position inside
+            {
+                offset = 0.1758 -0.1374 -0.2527,
+                rotate = 0.0 0.0 0.0,
+            }
+            position outside
+            {
+                offset = 0.5934 -0.467 -0.1813,
+                rotate = 0.0 0.0 0.0,
+                area = SeatRearLeft,
+            }
+        }
+        passenger RearRight
+        {
+            position inside
+            {
+                offset = -0.1758 -0.1374 -0.2527,
+                rotate = 0.0 0.0 0.0,
+            }
+            position outside
+            {
+                offset = -0.5934 -0.467 -0.1813,
+                rotate = 0.0 0.0 0.0,
+                area = SeatRearRight,
+            }
+        }
+
+        area Engine
+        {
+            xywh = 0.0 1.3297 0.8681 0.4725,
+        }
+        area TruckBed
+        {
+            xywh = 0.0 -1.3297 0.8681 0.4725,
+        }
+        area GasTank
+        {
+            xywh = 0.6703 -0.5879 0.4725 0.4725,
+        }
+        area SeatFrontLeft
+        {
+            xywh = 0.6703 0.2143 0.4725 0.4725,
+        }
+        area SeatFrontRight
+        {
+            xywh = -0.6703 0.2143 0.4725 0.4725,
+        }
+        area SeatRearLeft
+        {
+            xywh = 0.6703 -0.1813 0.4725 0.4725,
+        }
+        area SeatRearRight
+        {
+            xywh = -0.6703 -0.1813 0.4725 0.4725,
+        }
+        area TireFrontLeft
+        {
+            xywh = 0.6703 0.7582 0.4725 0.4725,
+        }
+        area TireFrontRight
+        {
+            xywh = -0.6703 0.7582 0.4725 0.4725,
+        }
+        area TireRearLeft
+        {
+            xywh = 0.6703 -0.5879 0.4725 0.4725,
+        }
+        area TireRearRight
+        {
+            xywh = -0.6703 -0.5879 0.4725 0.4725,
+        }
+
+        template = TrunkDoor,
+        template = Trunk/part/TruckBed,
+        template = Seat/part/SeatFrontLeft,
+        template = Seat/part/SeatFrontRight,
+        template = Seat/part/SeatRearLeft,
+        template = Seat/part/SeatRearRight,
+        template = GloveBox,
+        template = Battery,
+        template = Engine,
+        template = EngineDoor,
+        template = Heater,
+        template = Windshield/part/Windshield,
+        template = Windshield/part/WindshieldRear,
+        template = Window/part/WindowFrontLeft,
+        template = Window/part/WindowFrontRight,
+        template = Window/part/WindowRearLeft,
+        template = Window/part/WindowRearRight,
+        template = Door/part/DoorFrontLeft,
+        template = Door/part/DoorFrontRight,
+        template = Door/part/DoorRearLeft,
+        template = Door/part/DoorRearRight,
+        template = Tire,
+        template = Brake,
+        template = Suspension,
+        template = Radio_HAM,
+        template = Headlight,
+        template = PickupTruckCollision,
+        part GasTank
+        {
+            mechanicArea = Back,
+            area = GasTank,
+            category = gastank,
+            itemType = Cybertruck.BatteryPack,
+            specificItem = false,
+            mechanicRequireKey = true,
+            durability = 30,
+            container
+            {
+                capacity = 100,
+                test = Vehicles.ContainerAccess.GasTank,
+                contentType = Electricity,
+                conditionAffectsCapacity = false,
+            }
+            lua
+            {
+                create = Cybertruck.Create.BatteryPack,
+                update = Cybertruck.Update.BatteryPack,
+                checkEngine = Vehicles.CheckEngine.GasTank,
+            }
+            table install
+            {
+                items
+                {
+                    1
+                    {
+                        tags = base:screwdriver,
+                        count = 1,
+                        keep = true,
+                        equip = secondary,
+                    }
+                    2
+                    {
+                        tags = base:wrench,
+                        count = 1,
+                        keep = true,
+                        equip = primary,
+                    }
+                }
+                time = 800,
+                skills = Mechanics:7;Electricity:5,
+                recipes = Intermediate Mechanics,
+                test = Vehicles.InstallTest.Default,
+            }
+            table uninstall
+            {
+                items
+                {
+                    1
+                    {
+                        tags = base:screwdriver,
+                        count = 1,
+                        keep = true,
+                        equip = secondary,
+                    }
+                    2
+                    {
+                        tags = base:wrench,
+                        count = 1,
+                        keep = true,
+                        equip = primary,
+                    }
+                }
+                time = 800,
+                skills = Mechanics:7;Electricity:5,
+                recipes = Intermediate Mechanics,
+                test = Vehicles.UninstallTest.Default,
+            }
+        }
+
+        part TruckBed
+        {
+            container
+            {
+                capacity = 160,
+                test = Vehicles.ContainerAccess.TruckBedOpenInside,
+            }
+        }
+        part Windshield
+        {
+            itemType = Cybertruck.ArmorGlassWindshield,
+            specificItem = false,
+            durability = 60,
+            lua
+            {
+                create = Vehicles.Create.Default,
+                update = Cybertruck.Update.Armor,
+            }
+            table install
+            {
+                recipes = Intermediate Mechanics,
+            }
+            table uninstall
+            {
+                recipes = Intermediate Mechanics,
+            }
+        }
+        part WindshieldRear
+        {
+            itemType = Cybertruck.ArmorGlassRearWindshield,
+            specificItem = false,
+            durability = 60,
+            lua
+            {
+                create = Vehicles.Create.Default,
+                update = Cybertruck.Update.Armor,
+            }
+            table install
+            {
+                recipes = Intermediate Mechanics,
+            }
+            table uninstall
+            {
+                recipes = Intermediate Mechanics,
+            }
+        }
+        part Window*
+        {
+            itemType = Cybertruck.ArmorGlassWindow,
+            specificItem = false,
+            durability = 60,
+            lua
+            {
+                create = Vehicles.Create.Window,
+                init = Vehicles.Init.Window,
+                update = Cybertruck.Update.Armor,
+            }
+            table install
+            {
+                recipes = Intermediate Mechanics,
+            }
+            table uninstall
+            {
+                recipes = Intermediate Mechanics,
+            }
+        }
+        part Door*
+        {
+            durability = 60,
+            lua
+            {
+                create = Vehicles.Create.Door,
+                init = Vehicles.Init.Door,
+                use = Vehicles.Use.Door,
+                update = Cybertruck.Update.Armor,
+            }
+            table install
+            {
+                recipes = Intermediate Mechanics,
+            }
+            table uninstall
+            {
+                recipes = Intermediate Mechanics,
+            }
+        }
+        part EngineDoor
+        {
+            durability = 60,
+            lua
+            {
+                create = Vehicles.Create.Default,
+                init = Vehicles.Init.Door,
+                update = Cybertruck.Update.ArmorEngineDoor,
+                use = Vehicles.Use.EngineDoor,
+            }
+            table install
+            {
+                recipes = Intermediate Mechanics,
+            }
+            table uninstall
+            {
+                recipes = Intermediate Mechanics,
+            }
+        }
+        part TrunkDoor
+        {
+            durability = 60,
+            lua
+            {
+                create = Vehicles.Create.TrunkDoor,
+                init = Vehicles.Init.Door,
+                update = Cybertruck.Update.ArmorTrunkDoor,
+                use = Vehicles.Use.TrunkDoor,
+            }
+            table install
+            {
+                recipes = Intermediate Mechanics,
+            }
+            table uninstall
+            {
+                recipes = Intermediate Mechanics,
+            }
+        }
+
+        part Tire*
+        {
+            itemType = Base.ModernTire,
+        }
+        part Radio
+        {
+            itemType = Base.HamRadio2,
+        }
+        part Seat*
+        {
+            table install
+            {
+                skills = Mechanics:2,
+                recipes = Intermediate Mechanics,
+            }
+            table uninstall
+            {
+                skills = Mechanics:2,
+                recipes = Intermediate Mechanics,
+            }
+        }
+        part Heater
+        {
+            category = engine,
+            lua
+            {
+                update = Vehicles.Update.Heater,
+            }
+        }
+        part PassengerCompartment
+        {
+            category = nodisplay,
+            lua
+            {
+                update = Vehicles.Update.PassengerCompartment,
+            }
+        }
+        part Brake*
+        {
+            itemType = Base.ModernBrake,
+            table install
+            {
+                skills = Mechanics:6,
+                recipes = Intermediate Mechanics,
+            }
+            table uninstall
+            {
+                skills = Mechanics:6,
+                recipes = Intermediate Mechanics,
+            }
+        }
+        part Suspension*
+        {
+            itemType = Base.ModernSuspension,
+            table install
+            {
+                skills = Mechanics:6,
+                recipes = Intermediate Mechanics,
+            }
+            table uninstall
+            {
+                skills = Mechanics:6,
+                recipes = Intermediate Mechanics,
+            }
+        }
+
+        attachment trailer
+        {
+            offset = 0.0 -0.2747 -1.1813,
+            rotate = 0.0 0.0 0.0,
+            zoffset = -1.0,
+        }
+        attachment trailerfront
+        {
+            offset = 0.0 -0.2747 1.1374,
+            rotate = 0.0 0.0 0.0,
+            zoffset = 1.0,
+        }
+    }
+}

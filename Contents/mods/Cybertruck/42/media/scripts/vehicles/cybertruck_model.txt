@@ -1,0 +1,10 @@
+module Base
+{
+    model Vehicles_Cybertruck
+    {
+        mesh = vehicles/Vehicles_Cybertruck,
+        shader = vehicle_norandom_multiuv,
+        invertX = false,
+        scale = 0.008,
+    }
+}

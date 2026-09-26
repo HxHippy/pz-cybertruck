@@ -1,0 +1,19 @@
+{
+    "Sandbox_Cybertruck": "Cybertruck",
+    "Sandbox_Cybertruck_WorldSpawn": "Spawns in the world",
+    "Sandbox_Cybertruck_WorldSpawn_tooltip": "Cybertrucks can turn up in upscale neighborhoods, professional lots and dealerships.",
+    "Sandbox_Cybertruck_SpawnChance": "Spawn weight",
+    "Sandbox_Cybertruck_SpawnChance_tooltip": "Weight against other cars in the same zone. The vanilla SUV is 20. Dealerships use double.",
+    "Sandbox_Cybertruck_Craftable": "Can be built",
+    "Sandbox_Cybertruck_Craftable_tooltip": "Adds the Build Cybertruck recipe (Mechanics 8, Welding 7, Electrical 6).",
+    "Sandbox_Cybertruck_BatteryDrain": "Battery drain multiplier",
+    "Sandbox_Cybertruck_BatteryDrain_tooltip": "Stacks with the vanilla gas consumption setting.",
+    "Sandbox_Cybertruck_ChargeHours": "Hours for a full charge",
+    "Sandbox_Cybertruck_ChargeHours_tooltip": "Game hours to go from empty to full while plugged in.",
+    "Sandbox_Cybertruck_GeneratorFuelPerCharge": "Generator fuel per full charge, percent of a tank",
+    "Sandbox_Cybertruck_GeneratorFuelPerCharge_tooltip": "Percent of a full generator tank burned to charge the truck from empty to full. 0 makes generator charging free.",
+    "Sandbox_Cybertruck_GridCharging": "Charge from building power",
+    "Sandbox_Cybertruck_GridCharging_tooltip": "While the grid is up, a truck parked next to a powered building can plug in for free.",
+    "Sandbox_Cybertruck_ArmorAbsorb": "Armor absorbs, percent of each hit",
+    "Sandbox_Cybertruck_ArmorAbsorb_tooltip": "How much of each hit the stainless body and armored glass shrug off."
+}

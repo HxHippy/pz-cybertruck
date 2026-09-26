@@ -1,0 +1,39 @@
+module Base
+{
+    sound CybertruckMotor
+    {
+        category = Vehicle,
+        master = VehicleEngine,
+        loop = true,
+        clip
+        {
+            file = media/sound/cybertruck_motor.ogg,
+            distanceMax = 25,
+            volume = 0.45,
+        }
+    }
+
+    sound CybertruckStart
+    {
+        category = Vehicle,
+        master = VehicleEngine,
+        clip
+        {
+            file = media/sound/cybertruck_start.ogg,
+            distanceMax = 15,
+            volume = 0.6,
+        }
+    }
+
+    sound CybertruckStop
+    {
+        category = Vehicle,
+        master = VehicleEngine,
+        clip
+        {
+            file = media/sound/cybertruck_stop.ogg,
+            distanceMax = 15,
+            volume = 0.6,
+        }
+    }
+}

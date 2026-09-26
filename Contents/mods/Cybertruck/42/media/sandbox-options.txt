@@ -1,0 +1,49 @@
+VERSION = 1,
+
+option Cybertruck.WorldSpawn
+{
+    type = boolean, default = true,
+    page = Cybertruck, translation = Cybertruck_WorldSpawn,
+}
+
+option Cybertruck.SpawnChance
+{
+    type = integer, min = 1, max = 100, default = 3,
+    page = Cybertruck, translation = Cybertruck_SpawnChance,
+}
+
+option Cybertruck.Craftable
+{
+    type = boolean, default = true,
+    page = Cybertruck, translation = Cybertruck_Craftable,
+}
+
+option Cybertruck.BatteryDrain
+{
+    type = double, min = 0.1, max = 10.0, default = 1.0,
+    page = Cybertruck, translation = Cybertruck_BatteryDrain,
+}
+
+option Cybertruck.ChargeHours
+{
+    type = integer, min = 1, max = 72, default = 10,
+    page = Cybertruck, translation = Cybertruck_ChargeHours,
+}
+
+option Cybertruck.GeneratorFuelPerCharge
+{
+    type = integer, min = 0, max = 400, default = 50,
+    page = Cybertruck, translation = Cybertruck_GeneratorFuelPerCharge,
+}
+
+option Cybertruck.GridCharging
+{
+    type = boolean, default = true,
+    page = Cybertruck, translation = Cybertruck_GridCharging,
+}
+
+option Cybertruck.ArmorAbsorb
+{
+    type = integer, min = 0, max = 100, default = 90,
+    page = Cybertruck, translation = Cybertruck_ArmorAbsorb,
+}
