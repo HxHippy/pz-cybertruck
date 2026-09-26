@@ -4,14 +4,14 @@ module Base
     {
         mechanicType = 2,
         engineRepairLevel = 6,
-        playerDamageProtection = 3.0,
-        offRoadEfficiency = 1.4,
+        playerDamageProtection = 0.15,
+        offRoadEfficiency = 2.0,
 
         model
         {
             file = Vehicles_Cybertruck,
             scale = 1.82,
-            offset = 0.0 0.3022 0.0,
+            offset = 0.0 0.2600 0.0,
         }
         skin
         {
@@ -28,7 +28,7 @@ module Base
         sound
         {
             alarmLoop = VehicleAlarmA VehicleAlarmB VehicleAlarmC VehicleAlarmD VehicleAlarmE,
-            engine = CybertruckMotor,
+            engine = CybertruckSilent,
             engineStart = CybertruckStart,
             engineTurnOff = CybertruckStop,
             horn = VehicleHornStandard,
@@ -37,7 +37,7 @@ module Base
 
         extents = 0.8681 0.6593 2.1868,
         physicsChassisShape = 0.8681 0.6593 2.1868,
-        centerOfMassOffset = 0.0 0.2600 0.0,
+        centerOfMassOffset = 0.0 0.3022 0.0,
         shadowExtents = 0.8681 2.1868,
         shadowOffset = 0.0 0.0,
         mass = 1400,
@@ -47,13 +47,13 @@ module Base
         maxSpeed = 120.0,
         brakingForce = 140,
         stoppingMovementForce = 4.0,
-        rollInfluence = 0.6,
+        rollInfluence = 0.08,
         steeringIncrement = 0.04,
         steeringClamp = 0.3,
-        suspensionStiffness = 45.0,
-        suspensionCompression = 3.83,
-        suspensionDamping = 2.88,
-        maxSuspensionTravelCm = 14.0,
+        suspensionStiffness = 200.0,
+        suspensionCompression = 14.0,
+        suspensionDamping = 12.0,
+        maxSuspensionTravelCm = 3.0,
         suspensionRestLength = 0.2,
         wheelFriction = 1.8,
         frontEndHealth = 600,
@@ -360,6 +360,14 @@ module Base
         part Door*
         {
             durability = 60,
+            anim Lock
+            {
+                sound = CybertruckLock,
+            }
+            anim Unlock
+            {
+                sound = CybertruckLock,
+            }
             lua
             {
                 create = Vehicles.Create.Door,

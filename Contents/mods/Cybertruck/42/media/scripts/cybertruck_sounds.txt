@@ -1,15 +1,50 @@
 module Base
 {
-    sound CybertruckMotor
+    sound CybertruckSilent
     {
         category = Vehicle,
         master = VehicleEngine,
         loop = true,
         clip
         {
-            file = media/sound/cybertruck_motor.ogg,
-            distanceMax = 25,
-            volume = 0.45,
+            file = media/sound/cybertruck_silent.ogg,
+            distanceMax = 5,
+        }
+    }
+
+    sound CybertruckIdle
+    {
+        category = Vehicle,
+        master = VehicleEngine,
+        loop = true,
+        clip
+        {
+            file = media/sound/cybertruck_idle.ogg,
+            distanceMax = 20,
+        }
+    }
+
+    sound CybertruckWhine
+    {
+        category = Vehicle,
+        master = VehicleEngine,
+        loop = true,
+        clip
+        {
+            file = media/sound/cybertruck_whine.ogg,
+            distanceMax = 35,
+        }
+    }
+
+    sound CybertruckRoad
+    {
+        category = Vehicle,
+        master = VehicleEngine,
+        loop = true,
+        clip
+        {
+            file = media/sound/cybertruck_road.ogg,
+            distanceMax = 30,
         }
     }
 
@@ -34,6 +69,36 @@ module Base
             file = media/sound/cybertruck_stop.ogg,
             distanceMax = 15,
             volume = 0.6,
+        }
+    }
+
+    sound CybertruckLock
+    {
+        category = Vehicle,
+        clip
+        {
+            file = media/sound/cybertruck_lock.ogg,
+            distanceMax = 15,
+        }
+    }
+
+    sound CybertruckPlugIn
+    {
+        category = Item,
+        clip
+        {
+            file = media/sound/cybertruck_plug_in.ogg,
+            distanceMax = 10,
+        }
+    }
+
+    sound CybertruckPlugOut
+    {
+        category = Item,
+        clip
+        {
+            file = media/sound/cybertruck_plug_out.ogg,
+            distanceMax = 10,
         }
     }
 }

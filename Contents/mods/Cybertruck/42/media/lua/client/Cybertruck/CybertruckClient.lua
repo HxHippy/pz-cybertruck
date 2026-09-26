@@ -39,6 +39,8 @@ function CybertruckPlugAction:perform()
     else
         Cybertruck.onCommand(command, self.character, args) -- single player: no server to ask
     end
+    -- The truck's own emitter plays file clips reliably; the character's doesn't for these.
+    self.vehicle:getEmitter():playSound(self.plug and "CybertruckPlugIn" or "CybertruckPlugOut")
     local key = self.plug and ("IGUI_Cybertruck_Charging_" .. self.kind) or "IGUI_Cybertruck_Unplugged"
     self.character:setHaloNote(getText(key), 120, 220, 255, 300)
     ISBaseTimedAction.perform(self)

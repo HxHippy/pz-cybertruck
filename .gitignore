@@ -2,3 +2,11 @@
 Thumbs.db
 *.swp
 build/
+
+# Licensed stock sound effects: shipped in the mod, not redistributed in this repo
+Contents/mods/Cybertruck/42/media/sound/cybertruck_idle.ogg
+Contents/mods/Cybertruck/42/media/sound/cybertruck_whine.ogg
+Contents/mods/Cybertruck/42/media/sound/cybertruck_road.ogg
+Contents/mods/Cybertruck/42/media/sound/cybertruck_lock.ogg
+Contents/mods/Cybertruck/42/media/sound/cybertruck_plug_in.ogg
+Contents/mods/Cybertruck/42/media/sound/cybertruck_plug_out.ogg
