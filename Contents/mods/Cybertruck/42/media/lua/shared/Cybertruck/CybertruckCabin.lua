@@ -3,6 +3,7 @@
 -- impact speed alone. So while someone rides in a Cybertruck we keep a copy of their body state,
 -- and when the game reports CARCRASHDAMAGE we put it back. Everything else still hurts normally.
 require "Cybertruck/CybertruckShared"
+require "Cybertruck/CybertruckTuning"
 
 local snapshots = {}   -- player object -> list of part states
 
@@ -44,7 +45,7 @@ local function restore(player, s)
 end
 
 Events.OnPlayerUpdate.Add(function(player)
-    if Cybertruck.is(player:getVehicle()) then
+    if Cybertruck.cabinMode() == 1 and Cybertruck.is(player:getVehicle()) then
         snapshots[player] = snapshot(player)
     else
         snapshots[player] = nil
@@ -52,7 +53,7 @@ Events.OnPlayerUpdate.Add(function(player)
 end)
 
 Events.OnPlayerGetDamage.Add(function(character, damageType, damage)
-    if damageType ~= "CARCRASHDAMAGE" then return end
+    if damageType ~= "CARCRASHDAMAGE" or Cybertruck.cabinMode() ~= 1 then return end
     local s = snapshots[character]
     if s and Cybertruck.is(character:getVehicle()) then restore(character, s) end
 end)

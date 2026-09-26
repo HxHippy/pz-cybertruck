@@ -25,16 +25,29 @@ Both options are sandbox toggles, so the world creator (or server admin) decides
 - **Build it:** the **Build Cybertruck** recipe (Mechanics 8, Welding 7, Electrical 6) rolls a new truck out next to you and hands you the key. It comes with a nearly empty battery, so go find a generator.
 
 ## Sandbox options
-| Option | Default |
-|---|---|
-| Spawns in the world | on |
-| Spawn weight | 3 |
-| Can be built | on |
-| Battery drain multiplier | 1.0 |
-| Hours for a full charge | 10 |
-| Generator fuel per full charge (percent of a tank) | 50 |
-| Charge from building power | on |
-| Armor absorbs (percent of each hit) | 90 |
+Every dial lives on the **Cybertruck** page of the sandbox settings.
+
+| Group | Option | Default |
+|---|---|---|
+| Spawning | Spawns in the world | on |
+| | Spawn weight (vanilla SUV is 20) | 3 |
+| | Battery when found: min / max | 30% / 90% |
+| | Can be built | on |
+| | Battery after building one | 5% |
+| Battery | Battery drain multiplier | 1.0 |
+| | Regenerative braking strength | 100% |
+| | Hours for a full charge | 10 |
+| | Generator fuel per full charge (percent of a tank) | 50 |
+| | Charging cable reach | 12 tiles |
+| | Charge from building power | on |
+| Performance | Motor power | 100% |
+| | Top speed | 100% |
+| | Motor loudness (vanilla SUV is 100) | 20 |
+| | Off-road grip (vanilla cars 0.8-1.3) | 2.0 |
+| Protection | Cabin protection: Plush tank / Reinforced / Vanilla | Plush tank |
+| | Armor absorbs, percent of each hit | 90 |
+| | Armored glass strength (vanilla glass is 2) | 60 |
+| | Stainless panel strength (vanilla panels are 5) | 60 |
 
 ## Multiplayer
 Charging, drain and armor all run on the server. Plugging in is a client command that the server checks: the engine has to be off and a live charger has to be in reach.

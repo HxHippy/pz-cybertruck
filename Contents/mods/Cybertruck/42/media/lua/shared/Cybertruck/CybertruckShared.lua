@@ -37,7 +37,7 @@ function Cybertruck.findCharger(vehicle)
     local x0, y0, z = sq:getX(), sq:getY(), sq:getZ()
 
     local best, bestD
-    local r = Cybertruck.CABLE_REACH
+    local r = Cybertruck.opt("CableReach", Cybertruck.CABLE_REACH)
     for x = x0 - r, x0 + r do
         for y = y0 - r, y0 + r do
             local s = cell:getGridSquare(x, y, z)

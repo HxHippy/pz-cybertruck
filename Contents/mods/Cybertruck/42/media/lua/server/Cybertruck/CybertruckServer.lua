@@ -1,5 +1,6 @@
 -- Cybertruck: drive battery, charging, armor, world spawns and the build recipe.
 require "Cybertruck/CybertruckShared"
+require "Cybertruck/CybertruckTuning"
 require "Vehicles/Vehicles"
 
 local function clamp(v, lo, hi)
@@ -19,8 +20,10 @@ function Cybertruck.Create.BatteryPack(vehicle, part)
     if SandboxVars.VehicleEasyUse then
         part:setContainerContentAmount(cap)
     else
-        -- Parked since the outbreak: somewhere between a third and nearly full.
-        part:setContainerContentAmount(ZombRand(math.floor(cap * 0.3), math.floor(cap * 0.9)))
+        -- Parked since the outbreak: somewhere in the sandbox range.
+        local lo = Cybertruck.opt("SpawnChargeMin", 30)
+        local hi = math.max(lo, Cybertruck.opt("SpawnChargeMax", 90))
+        part:setContainerContentAmount(cap * (lo + ZombRand(hi - lo + 1)) / 100)
     end
 end
 
@@ -73,6 +76,7 @@ local function charge(vehicle, part, amount, minutes)
 end
 
 function Cybertruck.Update.BatteryPack(vehicle, part, elapsedMinutes)
+    Cybertruck.applyVehicleTuning(vehicle)
     if not part:getInventoryItem() then return end
     local md = part:getModData()
     local cap = part:getContainerCapacity()
@@ -91,7 +95,7 @@ function Cybertruck.Update.BatteryPack(vehicle, part, elapsedMinutes)
             local speed = math.abs(vehicle:getCurrentSpeedKmHour())
             local last = md.lastSpeed or speed
             if speed < last - 0.5 then
-                amount = amount + (last - speed) * 0.0015
+                amount = amount + (last - speed) * 0.0015 * Cybertruck.opt("RegenStrength", 100) / 100
             end
             md.lastSpeed = speed
         end
@@ -243,7 +247,7 @@ function Cybertruck_OnBuild(craftRecipeData, character)
     local part = Cybertruck.batteryPart(vehicle)
     if part then
         -- Fresh off the welding bench, the pack ships nearly empty. Go find a generator.
-        part:setContainerContentAmount(part:getContainerCapacity() * 0.05, false, true)
+        part:setContainerContentAmount(part:getContainerCapacity() * Cybertruck.opt("BuildCharge", 5) / 100, false, true)
         vehicle:transmitPartModData(part)
     end
     local key = vehicle:createVehicleKey()

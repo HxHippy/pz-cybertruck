@@ -12,16 +12,40 @@ option Cybertruck.SpawnChance
     page = Cybertruck, translation = Cybertruck_SpawnChance,
 }
 
+option Cybertruck.SpawnChargeMin
+{
+    type = integer, min = 0, max = 100, default = 30,
+    page = Cybertruck, translation = Cybertruck_SpawnChargeMin,
+}
+
+option Cybertruck.SpawnChargeMax
+{
+    type = integer, min = 0, max = 100, default = 90,
+    page = Cybertruck, translation = Cybertruck_SpawnChargeMax,
+}
+
 option Cybertruck.Craftable
 {
     type = boolean, default = true,
     page = Cybertruck, translation = Cybertruck_Craftable,
 }
 
+option Cybertruck.BuildCharge
+{
+    type = integer, min = 0, max = 100, default = 5,
+    page = Cybertruck, translation = Cybertruck_BuildCharge,
+}
+
 option Cybertruck.BatteryDrain
 {
     type = double, min = 0.1, max = 10.0, default = 1.0,
     page = Cybertruck, translation = Cybertruck_BatteryDrain,
+}
+
+option Cybertruck.RegenStrength
+{
+    type = integer, min = 0, max = 300, default = 100,
+    page = Cybertruck, translation = Cybertruck_RegenStrength,
 }
 
 option Cybertruck.ChargeHours
@@ -36,14 +60,62 @@ option Cybertruck.GeneratorFuelPerCharge
     page = Cybertruck, translation = Cybertruck_GeneratorFuelPerCharge,
 }
 
+option Cybertruck.CableReach
+{
+    type = integer, min = 3, max = 40, default = 12,
+    page = Cybertruck, translation = Cybertruck_CableReach,
+}
+
 option Cybertruck.GridCharging
 {
     type = boolean, default = true,
     page = Cybertruck, translation = Cybertruck_GridCharging,
 }
 
+option Cybertruck.EnginePower
+{
+    type = integer, min = 25, max = 300, default = 100,
+    page = Cybertruck, translation = Cybertruck_EnginePower,
+}
+
+option Cybertruck.TopSpeed
+{
+    type = integer, min = 25, max = 200, default = 100,
+    page = Cybertruck, translation = Cybertruck_TopSpeed,
+}
+
+option Cybertruck.MotorLoudness
+{
+    type = integer, min = 0, max = 150, default = 20,
+    page = Cybertruck, translation = Cybertruck_MotorLoudness,
+}
+
+option Cybertruck.OffroadGrip
+{
+    type = double, min = 0.5, max = 4.0, default = 2.0,
+    page = Cybertruck, translation = Cybertruck_OffroadGrip,
+}
+
+option Cybertruck.CabinProtection
+{
+    type = enum, numValues = 3, default = 1,
+    page = Cybertruck, translation = Cybertruck_CabinProtection, valueTranslation = Cybertruck_CabinProtectionValues,
+}
+
 option Cybertruck.ArmorAbsorb
 {
     type = integer, min = 0, max = 100, default = 90,
     page = Cybertruck, translation = Cybertruck_ArmorAbsorb,
+}
+
+option Cybertruck.GlassDurability
+{
+    type = integer, min = 1, max = 500, default = 60,
+    page = Cybertruck, translation = Cybertruck_GlassDurability,
+}
+
+option Cybertruck.PanelDurability
+{
+    type = integer, min = 1, max = 500, default = 60,
+    page = Cybertruck, translation = Cybertruck_PanelDurability,
 }
