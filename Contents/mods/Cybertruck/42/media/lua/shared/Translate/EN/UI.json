@@ -5,5 +5,10 @@
     "UI_Cybertruck_Spawning": "Spawning",
     "UI_Cybertruck_Battery": "Battery and charging",
     "UI_Cybertruck_Performance": "Performance",
-    "UI_Cybertruck_Protection": "Protection"
+    "UI_Cybertruck_Protection": "Protection",
+    "UI_Cybertruck_Fittings": "Apocalypse fittings",
+    "UI_Cybertruck_FireKey": "Roof gun fire key",
+    "UI_Cybertruck_FireKey_tip": "Hold it, or the left mouse button, from the gun seat to fire at the zombie outlined in red.",
+    "UI_Cybertruck_GunVolume": "Roof gun volume",
+    "UI_Cybertruck_GunVolume_tip": "How loud the roof gun is for you, in percent. Only changes what you hear: zombies still hear every shot."
 }

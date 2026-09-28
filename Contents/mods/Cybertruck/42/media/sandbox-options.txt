@@ -74,7 +74,7 @@ option Cybertruck.GridCharging
 
 option Cybertruck.EnginePower
 {
-    type = integer, min = 25, max = 300, default = 100,
+    type = integer, min = 25, max = 150, default = 100,
     page = Cybertruck, translation = Cybertruck_EnginePower,
 }
 
@@ -118,4 +118,46 @@ option Cybertruck.PanelDurability
 {
     type = integer, min = 1, max = 500, default = 60,
     page = Cybertruck, translation = Cybertruck_PanelDurability,
+}
+
+option Cybertruck.FoundWithKit
+{
+    type = boolean, default = false,
+    page = Cybertruck, translation = Cybertruck_FoundWithKit,
+}
+
+option Cybertruck.BladeAppearance
+{
+    type = boolean, default = true,
+    page = Cybertruck, translation = Cybertruck_BladeAppearance,
+}
+
+option Cybertruck.ZombiePlow
+{
+    type = boolean, default = true,
+    page = Cybertruck, translation = Cybertruck_ZombiePlow,
+}
+
+option Cybertruck.TreeSaw
+{
+    type = boolean, default = true,
+    page = Cybertruck, translation = Cybertruck_TreeSaw,
+}
+
+option Cybertruck.BladeDrain
+{
+    type = double, min = 0.0, max = 5.0, default = 1.0,
+    page = Cybertruck, translation = Cybertruck_BladeDrain,
+}
+
+option Cybertruck.ImpactCharge
+{
+    type = boolean, default = false,
+    page = Cybertruck, translation = Cybertruck_ImpactCharge,
+}
+
+option Cybertruck.ImpactChargePercent
+{
+    type = double, min = 0.0, max = 5.0, default = 0.5,
+    page = Cybertruck, translation = Cybertruck_ImpactChargePercent,
 }

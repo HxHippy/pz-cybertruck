@@ -44,9 +44,29 @@ def z_top(y):
     return 31.0 - (APEX_R - y) * (35.0 / (APEX_R - TAIL))
 
 
-# bottom edge with trapezoid wheel arches around the pickup's wheel centers (+98, -76)
-BOTTOM = [(141, -26), (137, -28), (124, -34), (114, -12), (82, -12), (72, -34),
-          (-50, -34), (-60, -12), (-92, -12), (-102, -34), (-137, -30), (-141, -27)]
+# Wheel arches for the 0.23 radius tire in cybertruck.txt: 29.7 model units (a model unit is 0.00774
+# vehicle units, from the 1.82 model scale and the template's FBX scale). The tires sit on the pickup
+# wheel stations (+98, -76). The vanilla pickup's arches put its tire center near z=-37. This body rides
+# 5.4 units lower on the same wheel offsets (model offset 0.26 against the pickup's 0.3022) and is
+# heavier, so plan on z=-30.5. Each arch is a half-octagon drawn around the tire with 2 units spare,
+# which still leaves a fender lip under the sloping hood. Tune TIRE_Z if the tire rubs in game.
+TIRE_R, TIRE_Z, ARCH_GAP, LIP, ROCKER = 29.7, -30.5, 2.0, 2.0, -34.0
+WHEEL_Y = (98.0, -76.0)
+
+
+def _arch(yc):
+    rv = (TIRE_R + ARCH_GAP) / math.cos(math.pi / 12)  # polygon outside the clearance circle
+    pts = [(round(yc + rv + 1, 1), ROCKER)]
+    for i in range(7):
+        a = math.pi * i / 6
+        y = yc + rv * math.cos(a)
+        z = min(max(ROCKER, TIRE_Z + rv * math.sin(a)), z_top(y) - LIP)
+        pts.append((round(y, 1), round(z, 1)))
+    return pts + [(round(yc - rv - 1, 1), ROCKER)]
+
+
+# bottom edge, nose to tail, with the arches cut in
+BOTTOM = [(141, -26), (137, -28)] + _arch(WHEEL_Y[0]) + _arch(WHEEL_Y[1]) + [(-137, -30), (-141, -27)]
 
 
 def z_bot(y):
@@ -68,8 +88,8 @@ def _belt_cross(lo, hi):
     return round((lo + hi) / 2, 3)
 
 
-YS = sorted({141, 137, 124, 114, 82, 72, 69, 58, 15, 10, -12, -32, -40, -50, -60, -92, -102, -137, -141,
-             _belt_cross(141, 15), _belt_cross(-12, -141)}, reverse=True)
+YS = sorted({141, 137, 69, 58, 15, 10, -12, -32, -40, -137, -141, _belt_cross(141, 15), _belt_cross(-12, -141)}
+            | {y for y, _ in BOTTOM}, reverse=True)
 
 # ---------------------------------------------------------------- zones (vehicle_common.frag.h)
 Z = {
@@ -286,6 +306,10 @@ def paint(path_shell, path_mask, path_lights):
     sheen = Image.new("RGBA", (TEX, TEX), (120, 140, 165, 255))
     shell.paste(sheen, (0, 0), Image.composite(grad, Image.new("L", (TEX, TEX), 0), gl))
 
+    # fitting swatches (saws, hatch, gun); mask stays white there, so no part zone touches them
+    for i, rgb in enumerate(SWATCHES):
+        ds.rectangle((i * TEX // 4 + 8, (1 - SWATCH_V1) * TEX, (i + 1) * TEX // 4 - 8, (1 - SWATCH_V0) * TEX), fill=rgb + (255,))
+
     shell.save(path_shell)
     mask.save(path_mask)
     lights.save(path_lights)
@@ -297,7 +321,7 @@ def fmt(vals, per_line=12):
     return ",".join(s)
 
 
-def write_fbx(template_path, out_path, name):
+def write_fbx(template_path, out_path, name, tex="vehicle_cybertruck_shell.png"):
     t = open(template_path, encoding="latin-1").read()
     verts, pvi, normals, uv, uvi = [], [], [], [], []
     for pts, uvs, _, _ in tris:
@@ -326,12 +350,12 @@ def write_fbx(template_path, out_path, name):
     geo = re.sub(r"Smoothing: \*\d+ \{.*?\} ", lambda m: arr("Smoothing", [0] * len(tris)), geo, flags=re.S)
     t = t[:g0] + geo + t[g1:]
     t = t.replace("Model::Vehicles_PickUpTruck", "Model::" + name)
-    open(out_path, "w", encoding="latin-1").write(scrub_paths(t))
+    open(out_path, "w", encoding="latin-1").write(scrub_paths(t, tex))
 
 
-def scrub_paths(t):
+def scrub_paths(t, tex="vehicle_cybertruck_shell.png"):
     """The vanilla export carries its author's Windows paths; point the texture at ours and blank the rest."""
-    t = re.sub(r'"[A-Za-z]:\\[^"]*\.png"', '"vehicle_cybertruck_shell.png"', t)
+    t = re.sub(r'"[A-Za-z]:\\[^"]*\.png"', '"' + tex + '"', t)
     return re.sub(r'"[A-Za-z]:\\[^"]*"', '""', t)
 
 
@@ -351,14 +375,158 @@ def write_obj(path, tex_name):
         f.write("newmtl shell\nKd 1 1 1\nmap_Kd %s\n" % tex_name)
 
 
+# Fitting colours live in the shell atlas, in the empty band between the roof strip (v <= 0.49) and
+# the right side (v >= 0.526). Part models on a vehicle shader are always drawn with the vehicle's own
+# skin as Texture0 (Model.drawVehicle binds the parent's texture), so a model script `texture` is ignored.
+# Every vertex of a face shares one UV, so the sample never leaves its swatch at any mip level.
+SWATCH_V0, SWATCH_V1 = 0.495, 0.521
+STEEL_UV = (0.125, 0.508)   # bright stainless
+GUN_UV = (0.375, 0.508)     # gunmetal
+DARK_UV = (0.625, 0.508)    # near-black
+RED_UV = (0.875, 0.508)     # hubs and accents
+SWATCHES = ((196, 199, 203), (82, 86, 92), (26, 28, 32), (186, 30, 26))
+
+
+def add_box(x0, y0, z0, x1, y1, z1, uv):
+    c = [(x0, y0, z0), (x1, y0, z0), (x1, y1, z0), (x0, y1, z0),
+         (x0, y0, z1), (x1, y0, z1), (x1, y1, z1), (x0, y1, z1)]
+    faces = [(0, 1, 2, 3, (0, 0, -1)), (4, 7, 6, 5, (0, 0, 1)),
+             (0, 4, 5, 1, (0, -1, 0)), (3, 2, 6, 7, (0, 1, 0)),
+             (0, 3, 7, 4, (-1, 0, 0)), (1, 5, 6, 2, (1, 0, 0))]
+    for a, b, d, e, outward in faces:
+        add_poly([c[a], c[b], c[d], c[e]], [uv] * 4, "none", STEEL, outward)
+
+
+def add_prism(points, z0, z1, top_uv, side_uv, bottom_uv=None):
+    """A flat shape extruded from z0 to z1. `points` go round the outline; it may be star-shaped
+    around the origin, so the caps are fanned from the center, one triangle per edge."""
+    n = len(points)
+    for i in range(n):
+        (ax, ay), (bx, by) = points[i], points[(i + 1) % n]
+        add_poly([(0, 0, z1), (ax, ay, z1), (bx, by, z1)], [top_uv] * 3, "none", STEEL, (0, 0, 1))
+        add_poly([(0, 0, z0), (bx, by, z0), (ax, ay, z0)], [bottom_uv or top_uv] * 3, "none", STEEL, (0, 0, -1))
+        mx, my = (ax + bx) / 2, (ay + by) / 2
+        add_poly([(ax, ay, z0), (bx, by, z0), (bx, by, z1), (ax, ay, z1)], [side_uv] * 4, "none", STEEL, (mx, my, 0))
+
+
+def circle(r, n, phase=0.0):
+    return [(math.cos(phase + 2 * math.pi * i / n) * r, math.sin(phase + 2 * math.pi * i / n) * r) for i in range(n)]
+
+
+def mesh(fn):
+    """Run fn against a fresh triangle list and return it. The body mesh is put back."""
+    global tris
+    saved = tris
+    tris = []
+    fn()
+    built = tris
+    tris = saved
+    return built
+
+
+SAW_R = 22.0
+
+
+def build_saw():
+    """One saw blade lying flat, centered on the origin, so each copy on the truck spins about its own hub.
+
+    Twenty raked teeth, a stainless disc, a gunmetal edge and a red hub that reads as the motor.
+    """
+    def go():
+        teeth = 20
+        outline = []
+        for i in range(teeth):
+            a = 2 * math.pi * i / teeth
+            b = a + 2 * math.pi / teeth * 0.72   # raked: the tip leads, the gullet trails
+            outline.append((math.cos(a) * SAW_R, math.sin(a) * SAW_R))
+            outline.append((math.cos(b) * SAW_R * 0.84, math.sin(b) * SAW_R * 0.84))
+        add_prism(outline, -0.8, 0.8, STEEL_UV, GUN_UV)
+        add_prism(circle(5.5, 10), 0.8, 2.2, RED_UV, RED_UV, RED_UV)
+        add_prism(circle(5.5, 10), -2.2, -0.8, RED_UV, RED_UV, RED_UV)
+        # Four dark vent slots, so a spinning blade shows motion instead of a flat grey disc.
+        for k in range(4):
+            a = math.pi / 2 * k
+            cx, cy = math.cos(a) * 12.5, math.sin(a) * 12.5
+            px, py = -math.sin(a), math.cos(a)
+            pts = [(cx + px * 3.2 - math.cos(a) * 1.1, cy + py * 3.2 - math.sin(a) * 1.1, 0.85),
+                   (cx - px * 3.2 - math.cos(a) * 1.1, cy - py * 3.2 - math.sin(a) * 1.1, 0.85),
+                   (cx - px * 3.2 + math.cos(a) * 1.1, cy - py * 3.2 + math.sin(a) * 1.1, 0.85),
+                   (cx + px * 3.2 + math.cos(a) * 1.1, cy + py * 3.2 + math.sin(a) * 1.1, 0.85)]
+            add_poly(pts, [DARK_UV] * 4, "none", STEEL, (0, 0, 1))
+    return mesh(go)
+
+
+# Where the saws ride, in model units: (x, y, z, radius). Rockers between the arches, the rear
+# quarters behind the rear wheels, and a pair jutting off the front bumper. Each clears the tires.
+SAWS = [
+    (W - 2, 36, -27, 22), (-(W - 2), 36, -27, 22),
+    (W - 2, -12, -27, 22), (-(W - 2), -12, -27, 22),
+    (W - 4, -127, -24, 16), (-(W - 4), -127, -24, 16),
+    (24, NOSE + 6, -24, 18), (-24, NOSE + 6, -24, 18),
+]
+
+
+def build_sunroof():
+    def go():
+        z = z_top(0) + 2.5
+        ring = circle(22.0, 16)
+        inner = circle(14.0, 16)
+        for i in range(16):
+            j = (i + 1) % 16
+            (ax, ay), (bx, by) = ring[i], ring[j]
+            (cx, cy), (dx, dy) = inner[i], inner[j]
+            add_poly([(cx, cy, z + 4), (dx, dy, z + 4), (bx, by, z + 4), (ax, ay, z + 4)], [STEEL_UV] * 4, "none", STEEL, (0, 0, 1))
+            add_poly([(ax, ay, z), (bx, by, z), (bx, by, z + 4), (ax, ay, z + 4)], [GUN_UV] * 4, "none", STEEL, ((ax + bx) / 2, (ay + by) / 2, 0))
+            add_poly([(cx, cy, z + 4), (dx, dy, z + 4), (dx, dy, z + 0.6), (cx, cy, z + 0.6)], [DARK_UV] * 4, "none", STEEL, (-(cx + dx) / 2, -(cy + dy) / 2, 0))
+        add_prism(inner, z + 0.4, z + 0.6, DARK_UV, DARK_UV)
+    return mesh(go)
+
+
+def build_turret():
+    """Pintle gun on a turntable, built around the hatch center so it swivels about its own ring.
+    The barrel points up the truck's nose (+y) at rest."""
+    def go():
+        z = z_top(0) + 6.5
+        add_prism(circle(13.0, 12), z, z + 2.5, GUN_UV, DARK_UV)          # turntable
+        add_box(-3, -3, z + 2.5, 3, 3, z + 9, DARK_UV)                      # pintle post
+        add_box(-4.5, -12, z + 9, 4.5, 12, z + 17, GUN_UV)                  # receiver
+        add_box(-2.3, 12, z + 11, 2.3, 30, z + 15.4, GUN_UV)               # barrel shroud
+        add_box(-1.3, 30, z + 12, 1.3, 68, z + 14.4, DARK_UV)              # barrel
+        add_box(-2.5, 64, z + 11.2, 2.5, 72, z + 15.2, DARK_UV)            # muzzle brake
+        add_box(4.5, -8, z + 8, 11, 5, z + 16, GUN_UV)                     # ammo can
+        add_box(4.6, -8.2, z + 13, 11.1, 5.2, z + 14, RED_UV)              # can band
+        add_box(-3.5, -18, z + 11.5, -1.5, -12, z + 15.5, DARK_UV)          # spade grips
+        add_box(1.5, -18, z + 11.5, 3.5, -12, z + 15.5, DARK_UV)
+        add_box(-15, 18, z + 6, -2.8, 20, z + 25, STEEL_UV)                 # split shield
+        add_box(2.8, 18, z + 6, 15, 20, z + 25, STEEL_UV)
+        add_box(-2.8, 18, z + 17, 2.8, 20, z + 25, STEEL_UV)
+    return mesh(go)
+
+
 if __name__ == "__main__":
     build()
     tex = os.path.join(MEDIA, "textures", "Vehicles")
     paint(os.path.join(tex, "vehicle_cybertruck_shell.png"),
           os.path.join(tex, "vehicle_cybertruck_mask.png"),
           os.path.join(tex, "vehicle_cybertruck_lights.png"))
-    write_fbx(sys.argv[1], os.path.join(MEDIA, "models_X", "vehicles", "Vehicles_Cybertruck.fbx"), "Vehicles_Cybertruck")
+    models = os.path.join(MEDIA, "models_X", "vehicles")
+    template = sys.argv[1]
+    write_fbx(template, os.path.join(models, "Vehicles_Cybertruck.fbx"), "Vehicles_Cybertruck")
+    body_count = len(tris)
     prev = os.path.join(HERE, "..", "build")
     os.makedirs(prev, exist_ok=True)
     write_obj(os.path.join(prev, "cybertruck.obj"), os.path.abspath(os.path.join(tex, "vehicle_cybertruck_shell.png")))
-    print("triangles", len(tris), "breakpoints", YS)
+
+    for builder, filename in ((build_saw, "Vehicles_CybertruckSaw.fbx"),
+                              (build_sunroof, "Vehicles_CybertruckSunroof.fbx"),
+                              (build_turret, "Vehicles_CybertruckTurret.fbx")):
+        tris = builder()
+        write_fbx(template, os.path.join(models, filename), filename[:-4])
+        print(filename, len(tris))
+    print("body triangles", body_count, "breakpoints", len(YS))
+    # Part model offsets for the saws, in the vehicle script's units (see cybertruck.txt BladeKit).
+    # Offsets land in plain vehicle units, same as the wheel offsets; the 1.82 model scale does not
+    # apply to them (measured in game: a saw lifted to y=0.35 sits just above the 0.29 roof).
+    k = 0.00774
+    for i, (x, y, z, r) in enumerate(SAWS, 1):
+        print("saw %d offset = %.4f %.4f %.4f, scale = %.4f" % (i, -x * k, z * k, y * k, r / SAW_R))

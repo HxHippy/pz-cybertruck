@@ -1,10 +1,12 @@
 #!/usr/bin/env python3
 """Synthesizes the Cybertruck's motor loop and start/stop chimes (no samples, nothing licensed).
 
-Writes media/sound/cybertruck_{motor,start,stop}.ogg. Needs numpy and ffmpeg with libvorbis.
+Writes media/sound/cybertruck_<name>.ogg. Pass names to build only those, e.g. `build_sounds.py start stop`.
+Needs numpy and ffmpeg with libvorbis.
 """
 import os
 import subprocess
+import sys
 import wave
 
 import numpy as np
@@ -52,8 +54,14 @@ def chime(freqs, dur=0.22):
     return np.concatenate(parts + [np.zeros(int(SR * 0.1))])
 
 
+BUILDERS = {
+    "motor": motor,
+    "start": lambda: chime([659.3, 987.8]),
+    "stop": lambda: chime([987.8, 659.3]),
+}
+
+
 if __name__ == "__main__":
-    write("cybertruck_motor", motor())
-    write("cybertruck_start", chime([659.3, 987.8]))
-    write("cybertruck_stop", chime([987.8, 659.3]))
+    for name in sys.argv[1:] or BUILDERS:
+        write("cybertruck_" + name, BUILDERS[name]())
     print("wrote", sorted(os.listdir(OUT)))

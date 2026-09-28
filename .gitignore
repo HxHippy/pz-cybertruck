@@ -10,3 +10,11 @@ Contents/mods/Cybertruck/42/media/sound/cybertruck_road.ogg
 Contents/mods/Cybertruck/42/media/sound/cybertruck_lock.ogg
 Contents/mods/Cybertruck/42/media/sound/cybertruck_plug_in.ogg
 Contents/mods/Cybertruck/42/media/sound/cybertruck_plug_out.ogg
+Contents/mods/Cybertruck/42/media/sound/cybertruck_gun.ogg
+# Cut from a licensed metal-grinder recording
+Contents/mods/Cybertruck/42/media/sound/cybertruck_blades.ogg
+Contents/mods/Cybertruck/42/media/sound/cybertruck_shred.ogg
+__pycache__/
+
+# Local test + screenshot harness (kept, never shipped)
+test/

@@ -7,4 +7,39 @@ module Base
         invertX = false,
         scale = 0.008,
     }
+
+    model Vehicles_CybertruckWheel
+    {
+        mesh = Vehicles_Wheel,
+        texture = Vehicles/vehicle_wheel,
+        shader = vehiclewheel,
+        scale = 1.533,
+    }
+
+    model Vehicles_CybertruckSaw
+    {
+        mesh = vehicles/Vehicles_CybertruckSaw,
+        texture = Vehicles/vehicle_cybertruck_shell,
+        shader = vehicle,
+        scale = 0.008,
+        static = true,
+    }
+
+    model Vehicles_CybertruckSunroof
+    {
+        mesh = vehicles/Vehicles_CybertruckSunroof,
+        texture = Vehicles/vehicle_cybertruck_shell,
+        shader = vehicle,
+        scale = 0.008,
+        static = true,
+    }
+
+    model Vehicles_CybertruckTurret
+    {
+        mesh = vehicles/Vehicles_CybertruckTurret,
+        texture = Vehicles/vehicle_cybertruck_shell,
+        shader = vehicle,
+        scale = 0.008,
+        static = true,
+    }
 }

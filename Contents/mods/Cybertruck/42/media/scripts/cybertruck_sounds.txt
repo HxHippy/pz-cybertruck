@@ -101,4 +101,36 @@ module Base
             distanceMax = 10,
         }
     }
+
+    sound CybertruckBlades
+    {
+        category = Vehicle,
+        master = VehicleEngine,
+        loop = true,
+        clip
+        {
+            file = media/sound/cybertruck_blades.ogg,
+            distanceMax = 35,
+        }
+    }
+
+    sound CybertruckShred
+    {
+        category = Vehicle,
+        clip
+        {
+            file = media/sound/cybertruck_shred.ogg,
+            distanceMax = 40,
+        }
+    }
+
+    sound CybertruckGun
+    {
+        category = Vehicle,
+        clip
+        {
+            file = media/sound/cybertruck_gun.ogg,
+            distanceMax = 70,
+        }
+    }
 }

@@ -4,5 +4,9 @@
     "IGUI_Cybertruck_Charging_grid": "Plugged into the building outlet",
     "IGUI_Cybertruck_Unplugged": "Unplugged",
     "IGUI_Cybertruck_NoCharger": "No running generator or live outlet in reach",
-    "IGUI_Cybertruck_NoRoom": "No room to roll the Cybertruck out here"
+    "IGUI_Cybertruck_NoRoom": "No room to roll the Cybertruck out here",
+    "IGUI_Cybertruck_NoAmmo": "The roof gun needs loose 5.56, on you or in the vault",
+    "IGUI_Cybertruck_BladesArmed": "Blades armed. They spin whenever the motor runs",
+    "IGUI_Cybertruck_MuskOn": "Musk Activated",
+    "IGUI_Cybertruck_MuskOff": "Musk Deactivated"
 }

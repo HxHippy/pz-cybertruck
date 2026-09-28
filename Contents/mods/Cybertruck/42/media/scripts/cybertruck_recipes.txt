@@ -36,4 +36,76 @@ module Cybertruck
             item 1 Cybertruck.CybertruckTitle,
         }
     }
+
+    craftRecipe CraftCybertruckBlades
+    {
+        time = 2500,
+        Tags = AnySurfaceCraft,
+        category = Metalworking,
+        SkillRequired = Mechanics:4;MetalWelding:4,
+        xpAward = Mechanics:40;MetalWelding:60,
+        timedAction = Welding_Surface,
+        inputs
+        {
+            item 8 [Base.BlowTorch],
+            item 1 tags[base:weldingmask] mode:keep,
+            item 1 tags[base:wrench] mode:keep flags[MayDegradeLight],
+            item 6 [Base.CircularSawblade],
+            item 6 [Base.SheetMetal],
+            item 4 [Base.MetalPipe],
+            item 8 [Base.NutsBolts],
+        }
+        outputs
+        {
+            item 1 Cybertruck.BladeKit,
+        }
+    }
+
+    craftRecipe CraftCybertruckSunroof
+    {
+        time = 1800,
+        Tags = AnySurfaceCraft,
+        category = Metalworking,
+        SkillRequired = Mechanics:3;MetalWelding:3,
+        xpAward = Mechanics:25;MetalWelding:40,
+        timedAction = Welding_Surface,
+        inputs
+        {
+            item 4 [Base.BlowTorch],
+            item 1 tags[base:weldingmask] mode:keep,
+            item 4 [Base.SheetMetal],
+            item 2 [Base.MetalPipe],
+            item 4 [Base.NutsBolts],
+            item 1 [Base.GlassPanel],
+        }
+        outputs
+        {
+            item 1 Cybertruck.Sunroof,
+        }
+    }
+
+    craftRecipe CraftCybertruckTurret
+    {
+        time = 2200,
+        Tags = AnySurfaceCraft,
+        category = Metalworking,
+        SkillRequired = Mechanics:5;Electricity:3;MetalWelding:3,
+        xpAward = Mechanics:40;Electricity:30;MetalWelding:30,
+        timedAction = Welding_Surface,
+        inputs
+        {
+            item 6 [Base.BlowTorch],
+            item 1 tags[base:weldingmask] mode:keep,
+            item 1 tags[base:screwdriver] mode:keep flags[MayDegradeLight],
+            item 1 [Base.AssaultRifle;Base.AssaultRifle2;Base.VarmintRifle],
+            item 4 [Base.MetalPipe],
+            item 2 [Base.SheetMetal],
+            item 8 [Base.ElectronicsScrap],
+            item 4 [Base.NutsBolts],
+        }
+        outputs
+        {
+            item 1 Cybertruck.Turret,
+        }
+    }
 }

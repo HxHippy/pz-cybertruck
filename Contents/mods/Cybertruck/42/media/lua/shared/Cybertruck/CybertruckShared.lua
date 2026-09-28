@@ -68,3 +68,91 @@ function Cybertruck.findCharger(vehicle)
     end
     return nil
 end
+
+---------------------------------------------------------------------------------------------------
+-- Apocalypse fittings: blade kit, roof hatch, roof gun.
+---------------------------------------------------------------------------------------------------
+
+-- Front-right seat. The driver is seat 0.
+Cybertruck.GUN_SEAT = 1
+-- IsoTree.SIZE_JUMBO. Smaller trees come down. The giant ones stay.
+Cybertruck.GIANT_TREE = 5
+-- A zombie killed at or above this speed counts as a bumper kill for impact charging.
+Cybertruck.KILL_SPEED = 12
+-- Body half-extents in tiles (cybertruck.txt extents / 2). The blades reach past them.
+Cybertruck.HALF_W = 0.434
+Cybertruck.HALF_L = 1.093
+-- A zombie beating on a door stands about 0.93 tiles off the centerline (measured in game).
+Cybertruck.BLADE_REACH = 0.6
+-- Roof gun: range and how far from the cursor it will look for a target, in tiles.
+Cybertruck.GUN_RANGE = 22
+Cybertruck.GUN_SNAP = 2.5
+Cybertruck.GUN_COOLDOWN_MS = 150
+Cybertruck.AMMO = "Base.556Bullets"
+-- Below this the truck counts as stopped: the driver may take the gun.
+Cybertruck.STOPPED_KMH = 3
+
+function Cybertruck.installed(vehicle, id)
+    local part = vehicle and vehicle:getPartById(id)
+    return part ~= nil and part:getInventoryItem() ~= nil
+end
+
+function Cybertruck.gunReady(vehicle)
+    return Cybertruck.installed(vehicle, "Sunroof") and Cybertruck.installed(vehicle, "Turret")
+end
+
+-- The driver's switch on the blade kit. Stored on the part so every client sees it.
+function Cybertruck.bladesOn(vehicle)
+    if not Cybertruck.installed(vehicle, "BladeKit") then return false end
+    return vehicle:getPartById("BladeKit"):getModData().spin == true
+end
+
+-- Actually turning: switched on, motor running, charge in the pack.
+function Cybertruck.bladesSpinning(vehicle)
+    if not Cybertruck.bladesOn(vehicle) or not vehicle:isEngineRunning() then return false end
+    local pack = Cybertruck.batteryPart(vehicle)
+    return pack ~= nil and pack:getContainerContentAmount() > 0
+end
+
+function Cybertruck.stopped(vehicle)
+    return math.abs(vehicle:getCurrentSpeedKmHour()) < Cybertruck.STOPPED_KMH
+end
+
+-- The gunner's seat always has the gun. The driver gets it only with the truck stopped.
+function Cybertruck.canFire(vehicle, player)
+    if not Cybertruck.is(vehicle) or not Cybertruck.gunReady(vehicle) then return false end
+    local seat = vehicle:getSeat(player)
+    return seat == Cybertruck.GUN_SEAT or (seat == 0 and Cybertruck.stopped(vehicle))
+end
+
+-- Zombie the roof gun locks onto. With an aim point: the one nearest the point, within GUN_SNAP.
+-- Without one (controller): the nearest one in range. `visible` filters out what can't be seen.
+function Cybertruck.pickTarget(vehicle, ax, ay, visible)
+    local ox, oy = vehicle:getX(), vehicle:getY()
+    local list = getCell():getZombieList()
+    local best, bestScore
+    local range2 = Cybertruck.GUN_RANGE * Cybertruck.GUN_RANGE
+    local snap2 = Cybertruck.GUN_SNAP * Cybertruck.GUN_SNAP
+    local vz = math.floor(vehicle:getZ())
+    for i = 0, list:size() - 1 do
+        local z = list:get(i)
+        if z and not z:isDead() and math.floor(z:getZ()) == vz then
+            local dx, dy = z:getX() - ox, z:getY() - oy
+            local d2 = dx * dx + dy * dy
+            if d2 > 1.5 and d2 < range2 then
+                local score
+                if ax then
+                    local sx, sy = z:getX() - ax, z:getY() - ay
+                    score = sx * sx + sy * sy
+                    if score > snap2 then score = nil end
+                else
+                    score = d2
+                end
+                if score and (not bestScore or score < bestScore) and (not visible or visible(z)) then
+                    best, bestScore = z, score
+                end
+            end
+        end
+    end
+    return best
+end

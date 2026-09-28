@@ -5,6 +5,7 @@
 require "Cybertruck/CybertruckShared"
 
 Cybertruck.BASE_TOP_SPEED = 120   -- maxSpeed in media/scripts/vehicles/cybertruck.txt
+Cybertruck.MAX_POWER_PCT = 150    -- measured: 200% squats the tail into the road at 1100 kg
 
 local GLASS = { "Windshield", "WindshieldRear", "WindowFrontLeft", "WindowFrontRight", "WindowRearLeft", "WindowRearRight" }
 local PANELS = { "DoorFrontLeft", "DoorFrontRight", "DoorRearLeft", "DoorRearRight", "EngineDoor", "TrunkDoor" }
@@ -34,7 +35,10 @@ function Cybertruck.applyVehicleTuning(vehicle)
     -- Same power curve the game uses when it creates an engine, then the dial on top.
     local quality = vehicle:getEngineQuality()
     local qualityModifier = math.max(0.6, math.min(quality * 1.6, 100) / 100)
-    local power = math.floor(script:getEngineForce() * qualityModifier * Cybertruck.opt("EnginePower", 100) / 100)
+    -- Past 150% the rear suspension can't hold the weight the motor throws back onto it, and the tail
+    -- sinks through the road. Older saves may still carry a higher dial; hold them to the limit.
+    local dial = math.min(Cybertruck.opt("EnginePower", 100), Cybertruck.MAX_POWER_PCT)
+    local power = math.floor(script:getEngineForce() * qualityModifier * dial / 100)
     -- setEngineFeature stores loudness * 0.37037 (VehicleEngine.setFeatures), so pass the target
     -- divided by that. The game also rebuilds loudness from the script value whenever parts
     -- change; this runs every update, so it puts the dial's value straight back.

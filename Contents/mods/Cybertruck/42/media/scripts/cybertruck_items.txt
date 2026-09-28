@@ -68,4 +68,66 @@ module Cybertruck
         StaticModel = Note1,
         WorldStaticModel = Note1,
     }
+
+    item ElonsMusk
+    {
+        DisplayCategory = Junk,
+        ItemType = base:normal,
+        Weight = 0.2,
+        Tooltip = Tooltip_Cybertruck_ElonsMusk,
+        Icon = Cologne,
+        IconFluidMask = Cologne_Mask,
+        WorldStaticModel = Cologne,
+        component FluidContainer
+        {
+            ContainerName = ElonsMusk,
+            Capacity = 0.1,
+            InitialPercentMin = 1.0,
+            InitialPercentMax = 1.0,
+            CustomDrinkSound = DrinkingFromMug,
+            Fluids
+            {
+                fluid = Cologne:1.0,
+            }
+        }
+    }
+
+    item BladeKit
+    {
+        DisplayCategory = VehicleMaintenance,
+        Weight = 18.0,
+        ItemType = base:normal,
+        Icon = CarDoor,
+        VehicleType = 2,
+        ConditionMax = 100,
+        ChanceToSpawnDamaged = 20,
+        MechanicsItem = true,
+        WorldStaticModel = CarDoor,
+    }
+
+    item Sunroof
+    {
+        DisplayCategory = VehicleMaintenance,
+        Weight = 8.0,
+        ItemType = base:normal,
+        Icon = CarWindshield,
+        VehicleType = 2,
+        ConditionMax = 100,
+        ChanceToSpawnDamaged = 10,
+        MechanicsItem = true,
+        WorldStaticModel = CarWindshield,
+    }
+
+    item Turret
+    {
+        DisplayCategory = VehicleMaintenance,
+        Weight = 12.0,
+        ItemType = base:normal,
+        Icon = AssaultRifle,
+        VehicleType = 2,
+        ConditionMax = 100,
+        ChanceToSpawnDamaged = 15,
+        MechanicsItem = true,
+        WorldStaticModel = AssaultRifle,
+    }
 }

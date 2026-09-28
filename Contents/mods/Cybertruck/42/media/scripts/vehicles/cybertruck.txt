@@ -40,8 +40,8 @@ module Base
         centerOfMassOffset = 0.0 0.3022 0.0,
         shadowExtents = 0.8681 2.1868,
         shadowOffset = 0.0 0.0,
-        mass = 1400,
-        engineForce = 7500,
+        mass = 1100,
+        engineForce = 5900,
         engineQuality = 100,
         engineLoudness = 20,
         maxSpeed = 120.0,
@@ -64,29 +64,29 @@ module Base
         {
             front = true,
             offset = 0.3462 -0.3956 0.7582,
-            radius = 0.15,
-            width = 0.2,
+            radius = 0.23,
+            width = 0.30,
         }
         wheel FrontRight
         {
             front = true,
             offset = -0.3462 -0.3956 0.7582,
-            radius = 0.15,
-            width = 0.2,
+            radius = 0.23,
+            width = 0.30,
         }
         wheel RearLeft
         {
             front = false,
             offset = 0.3462 -0.3956 -0.5879,
-            radius = 0.15,
-            width = 0.2,
+            radius = 0.23,
+            width = 0.30,
         }
         wheel RearRight
         {
             front = false,
             offset = -0.3462 -0.3956 -0.5879,
-            radius = 0.15,
-            width = 0.2,
+            radius = 0.23,
+            width = 0.30,
         }
 
         template = PassengerSeat4,
@@ -157,7 +157,7 @@ module Base
         }
         area GasTank
         {
-            xywh = 0.6703 -0.5879 0.4725 0.4725,
+            xywh = 0.6703 -1.10 0.4725 0.4725,
         }
         area SeatFrontLeft
         {
@@ -426,6 +426,10 @@ module Base
         part Tire*
         {
             itemType = Base.ModernTire,
+            model InflatedTirePlusWheel
+            {
+                file = Vehicles_CybertruckWheel,
+            }
         }
         part Radio
         {
@@ -486,6 +490,286 @@ module Base
             {
                 skills = Mechanics:6,
                 recipes = Intermediate Mechanics,
+            }
+        }
+
+        part BladeKit
+        {
+            area = TruckBed,
+            mechanicArea = Back,
+            category = body,
+            itemType = Cybertruck.BladeKit,
+            specificItem = false,
+            setAllModelsVisible = false,
+            durability = 80,
+            lua
+            {
+                create = Cybertruck.Create.Fitting,
+            }
+            model SawSpin1
+            {
+                file = Vehicles_CybertruckSaw,
+                scale = 1.0000,
+                offset = -0.4257 -0.2090 0.2786,
+            }
+            model SawSpin2
+            {
+                file = Vehicles_CybertruckSaw,
+                scale = 1.0000,
+                offset = 0.4257 -0.2090 0.2786,
+            }
+            model SawSpin3
+            {
+                file = Vehicles_CybertruckSaw,
+                scale = 1.0000,
+                offset = -0.4257 -0.2090 -0.0929,
+            }
+            model SawSpin4
+            {
+                file = Vehicles_CybertruckSaw,
+                scale = 1.0000,
+                offset = 0.4257 -0.2090 -0.0929,
+            }
+            model SawSpin5
+            {
+                file = Vehicles_CybertruckSaw,
+                scale = 0.7273,
+                offset = -0.4102 -0.1858 -0.9830,
+            }
+            model SawSpin6
+            {
+                file = Vehicles_CybertruckSaw,
+                scale = 0.7273,
+                offset = 0.4102 -0.1858 -0.9830,
+            }
+            model SawSpin7
+            {
+                file = Vehicles_CybertruckSaw,
+                scale = 0.8182,
+                offset = -0.1858 -0.1858 1.1378,
+            }
+            model SawSpin8
+            {
+                file = Vehicles_CybertruckSaw,
+                scale = 0.8182,
+                offset = 0.1858 -0.1858 1.1378,
+            }
+            model SawStill1
+            {
+                file = Vehicles_CybertruckSaw,
+                scale = 1.0000,
+                offset = -0.4257 -0.2090 0.2786,
+            }
+            model SawStill2
+            {
+                file = Vehicles_CybertruckSaw,
+                scale = 1.0000,
+                offset = 0.4257 -0.2090 0.2786,
+            }
+            model SawStill3
+            {
+                file = Vehicles_CybertruckSaw,
+                scale = 1.0000,
+                offset = -0.4257 -0.2090 -0.0929,
+            }
+            model SawStill4
+            {
+                file = Vehicles_CybertruckSaw,
+                scale = 1.0000,
+                offset = 0.4257 -0.2090 -0.0929,
+            }
+            model SawStill5
+            {
+                file = Vehicles_CybertruckSaw,
+                scale = 0.7273,
+                offset = -0.4102 -0.1858 -0.9830,
+            }
+            model SawStill6
+            {
+                file = Vehicles_CybertruckSaw,
+                scale = 0.7273,
+                offset = 0.4102 -0.1858 -0.9830,
+            }
+            model SawStill7
+            {
+                file = Vehicles_CybertruckSaw,
+                scale = 0.8182,
+                offset = -0.1858 -0.1858 1.1378,
+            }
+            model SawStill8
+            {
+                file = Vehicles_CybertruckSaw,
+                scale = 0.8182,
+                offset = 0.1858 -0.1858 1.1378,
+            }
+            table install
+            {
+                items
+                {
+                    1
+                    {
+                        tags = base:wrench,
+                        count = 1,
+                        keep = true,
+                        equip = primary,
+                    }
+                    2
+                    {
+                        tags = base:screwdriver,
+                        count = 1,
+                        keep = true,
+                        equip = secondary,
+                    }
+                }
+                time = 800,
+                skills = Mechanics:4,
+                test = Vehicles.InstallTest.Default,
+                complete = Vehicles.InstallComplete.Default,
+            }
+            table uninstall
+            {
+                items
+                {
+                    1
+                    {
+                        tags = base:wrench,
+                        count = 1,
+                        keep = true,
+                        equip = primary,
+                    }
+                }
+                time = 800,
+                skills = Mechanics:4,
+                test = Vehicles.UninstallTest.Default,
+                complete = Vehicles.UninstallComplete.Default,
+            }
+        }
+        part Sunroof
+        {
+            area = SeatFrontRight,
+            mechanicArea = Right,
+            category = body,
+            itemType = Cybertruck.Sunroof,
+            specificItem = false,
+            durability = 40,
+            lua
+            {
+                create = Cybertruck.Create.Fitting,
+            }
+            model Sunroof
+            {
+                file = Vehicles_CybertruckSunroof,
+                scale = 1.0,
+                offset = 0.0 0.0 0.0,
+            }
+            table install
+            {
+                items
+                {
+                    1
+                    {
+                        tags = base:wrench,
+                        count = 1,
+                        keep = true,
+                        equip = primary,
+                    }
+                    2
+                    {
+                        tags = base:screwdriver,
+                        count = 1,
+                        keep = true,
+                        equip = secondary,
+                    }
+                }
+                time = 700,
+                skills = Mechanics:3,
+                test = Vehicles.InstallTest.Default,
+                complete = Vehicles.InstallComplete.Default,
+            }
+            table uninstall
+            {
+                items
+                {
+                    1
+                    {
+                        tags = base:wrench,
+                        count = 1,
+                        keep = true,
+                        equip = primary,
+                    }
+                }
+                time = 700,
+                skills = Mechanics:3,
+                test = Vehicles.UninstallTest.Default,
+                complete = Vehicles.UninstallComplete.Default,
+            }
+        }
+        part Turret
+        {
+            area = SeatFrontRight,
+            mechanicArea = Right,
+            category = body,
+            itemType = Cybertruck.Turret,
+            specificItem = false,
+            setAllModelsVisible = false,
+            durability = 50,
+            lua
+            {
+                create = Cybertruck.Create.Fitting,
+            }
+            model TurretIdle
+            {
+                file = Vehicles_CybertruckTurret,
+                scale = 1.0,
+                offset = 0.0 0.0 0.0,
+            }
+            model TurretLive
+            {
+                file = Vehicles_CybertruckTurret,
+                scale = 1.0,
+                offset = 0.0 0.0 0.0,
+            }
+            table install
+            {
+                requireInstalled = Sunroof,
+                items
+                {
+                    1
+                    {
+                        tags = base:wrench,
+                        count = 1,
+                        keep = true,
+                        equip = primary,
+                    }
+                    2
+                    {
+                        tags = base:screwdriver,
+                        count = 1,
+                        keep = true,
+                        equip = secondary,
+                    }
+                }
+                time = 900,
+                skills = Mechanics:5;Electricity:2,
+                test = Vehicles.InstallTest.Default,
+                complete = Vehicles.InstallComplete.Default,
+            }
+            table uninstall
+            {
+                items
+                {
+                    1
+                    {
+                        tags = base:wrench,
+                        count = 1,
+                        keep = true,
+                        equip = primary,
+                    }
+                }
+                time = 900,
+                skills = Mechanics:4,
+                test = Vehicles.UninstallTest.Default,
+                complete = Vehicles.UninstallComplete.Default,
             }
         }
 

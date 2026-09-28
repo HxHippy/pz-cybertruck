@@ -1,4 +1,9 @@
 {
     "ContextMenu_Cybertruck_Plug": "Plug in to charge (battery %1)",
-    "ContextMenu_Cybertruck_Unplug": "Unplug charger (battery %1)"
+    "ContextMenu_Cybertruck_Unplug": "Unplug charger (battery %1)",
+    "ContextMenu_Cybertruck_Fire": "Fire roof gun (burst)",
+    "ContextMenu_Cybertruck_Hatch": "Climb into the hatch",
+    "ContextMenu_Cybertruck_BladesOn": "Spin up the blades",
+    "ContextMenu_Cybertruck_BladesOff": "Stop the blades",
+    "ContextMenu_Cybertruck_Spritz": "Spritz on some of Elon's Musk"
 }

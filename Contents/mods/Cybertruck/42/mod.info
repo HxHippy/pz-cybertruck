@@ -1,9 +1,9 @@
 name=Cybertruck
 id=Cybertruck
-description=A fully loaded electric Cybertruck. Stainless exoskeleton, armored glass, near-silent motor. Charge it from a generator.
+description=A fully loaded electric Cybertruck. Stainless exoskeleton, armored glass, near-silent motor. Charge it from a generator, then bolt on saw blades and a roof gun.
 author=HxHippy
 category=vehicle
-modversion=1.1.0
+modversion=1.5.0
 versionMin=42.0.0
 poster=poster.png
 icon=icon.png

@@ -32,7 +32,7 @@ slider("CableReach", 3, 40, 1, 12)
 tick("GridCharging", true)
 
 options:addTitle(getText("UI_Cybertruck_Performance"))
-slider("EnginePower", 25, 300, 5, 100)
+slider("EnginePower", 25, 150, 5, 100)
 slider("TopSpeed", 25, 200, 5, 100)
 slider("MotorLoudness", 0, 150, 5, 20)
 slider("OffroadGrip", 0.5, 4, 0.1, 2.0)
@@ -45,6 +45,22 @@ slider("ArmorAbsorb", 0, 100, 5, 90)
 slider("GlassDurability", 1, 500, 1, 60)
 slider("PanelDurability", 1, 500, 1, 60)
 
+options:addTitle(getText("UI_Cybertruck_Fittings"))
+tick("FoundWithKit", false)
+tick("BladeAppearance", true)
+tick("ZombiePlow", true)
+tick("TreeSaw", true)
+slider("BladeDrain", 0, 5, 0.1, 1.0)
+tick("ImpactCharge", false)
+slider("ImpactChargePercent", 0, 5, 0.1, 0.5)
+
+-- Always yours, single player or not: which key fires the roof gun besides the left mouse button.
+local fireKey = options:addKeyBind("FireKey", getText("UI_Cybertruck_FireKey"), Keyboard.KEY_K, getText("UI_Cybertruck_FireKey_tip"))
+Cybertruck.fireKey = function() return fireKey:getValue() end
+-- The 20 mm shot is mastered hot. Percent of full; 0 mutes it.
+local gunVolume = options:addSlider("GunVolume", getText("UI_Cybertruck_GunVolume"), 0, 100, 5, 40, getText("UI_Cybertruck_GunVolume_tip"))
+Cybertruck.gunVolume = function() return gunVolume:getValue() / 100 end
+
 -- Only a solo game runs the server-side code in this same Lua state, so only there can a
 -- player's own settings drive the truck.
 local function singlePlayer() return not isClient() and not isServer() end
@@ -52,7 +68,8 @@ local function singlePlayer() return not isClient() and not isServer() end
 Cybertruck.localOverride = function(name)
     if not singlePlayer() or not override:getValue() then return nil end
     local d = dials[name]
-    return d and d:getValue() or nil
+    if d then return d:getValue() end
+    return nil
 end
 
 function options:apply()
